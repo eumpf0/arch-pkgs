@@ -1,0 +1,8 @@
+post_install() {
+   flatpak install --system $(<< EOF
+   io.github.celluloid_player.Celluloid
+   org.gnome.Geary
+   org.geogebra.GeoGebra
+EOF
+)
+}

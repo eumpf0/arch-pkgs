@@ -1,0 +1,17 @@
+pre_install() {
+   # add key used for signing linux-surface kernels
+   curl -s "https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc" | pacman-key --add -
+
+   # verify & sign key
+   TMP="56C464BAAC421453"
+   pacman-key --finger $TMP
+   pacman-key --lsign-key $TMP
+   unset $TMP
+
+   # add linux-surface repo to pacman
+   >> /etc/pacman.conf << EOF
+
+[linux-surface]
+Server = https://pkg.surfacelinux.com/arch/
+EOF
+}
