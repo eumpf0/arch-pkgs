@@ -30,8 +30,6 @@ url="https://github.com/eumpf0/arch-pkgs"
 license=(MIT)
 groups=("eumpf")
 
-rootdir=$PWD
-
 package_eumpf-surface-base() {
    groups=(eumpf-surface)
    provides=(eumpf-device-base)
@@ -41,7 +39,7 @@ package_eumpf-surface-base() {
 
    depends=(
       linux-surface linux-surface-headers iptsd
-      linux-firmware-marvell intel_ucode
+      linux-firmware-marvell intel-ucode
    )
 }
 
@@ -52,7 +50,7 @@ package_eumpf-desktop-base() {
    
    depends=(
       linux linux-headers
-      nvidia intel_ucode
+      nvidia intel-ucode
    )
 }
 
@@ -130,8 +128,8 @@ package_eumpf-gnome() {
       gnome-tweaks
       nautilus
       # aur
-      gdm-settings
-      adw-gtk-theme
+      #gdm-settings
+      #adw-gtk-theme
    )
 }
 
@@ -155,7 +153,7 @@ package_eumpf-cli-apps() {
    depends+=(
       texlive-latexextra
       # aur
-      pandoc-bin
+      #pandoc-bin
    )
 }
 
