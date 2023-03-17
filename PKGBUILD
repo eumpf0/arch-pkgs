@@ -1,14 +1,34 @@
 # Maintainer: Elias Rumpf <e.rumpf@gmx.de>
 
 pkgbase=eumpf
-pkgname=()
+pkgname=(
+   "eumpf-common"
+   "eumpf-pc"
+   
+   "eumpf-surface-base"
+   "eumpf-surface-graphics-support"
+   "eumpf-surface-config"
+   
+   "eumpf-desktop-base"
+   "eumpf-desktop-graphics-support"
+   "eumpf-desktop-config"
+   
+   "eumpf-gnome"
+   "eumpf-gui-apps"
+   "eumpf-cli-apps"
+)
+
 pkgver=1
 pkgrel=1
+
 pkgdesc="my system config"
+
 arch=(any)
+
 url="https://github.com/eumpf0/arch-pkgs"
+
 license=(MIT)
-groups=()
+groups=("eumpf")
 
 rootdir=$PWD
 
