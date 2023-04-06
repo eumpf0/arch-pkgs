@@ -60,7 +60,7 @@ package_eumpf-common() {
    provides=(eumpf-device)
 
    depends+=(
-      base base-devel
+      base base-devel pacman-contrib
       linux-firmware
       man-db man-pages texinfo
       sudo git which tree

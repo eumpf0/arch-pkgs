@@ -7,6 +7,8 @@ post_install() {
    org.gnome.SimpleScan
    org.gnome.font-viewer
    org.gnome.eog
+   org.gtk.Gtk3theme.adw-gtk3
+   org.gtk.Gtk3theme.adw-gtk3-dark
 EOF
 )
 }
