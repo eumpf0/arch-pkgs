@@ -2,7 +2,9 @@ post_install() {
    flatpak install --system $(<< EOF
    io.github.celluloid_player.Celluloid
    org.gnome.Geary
-   org.geogebra.GeoGebra
+   com.obsproject.Studio
+   com.discordapp.Discord
+   com.prusa3d.PrusaSlicer
 EOF
 )
 }

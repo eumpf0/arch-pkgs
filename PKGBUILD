@@ -21,7 +21,7 @@ pkgname=(
 pkgver=1
 pkgrel=1
 
-pkgdesc="my system config"
+pkgdesc="personal system config metapackages"
 
 arch=(any)
 
@@ -30,143 +30,231 @@ url="https://github.com/eumpf0/arch-pkgs"
 license=(MIT)
 groups=("eumpf")
 
-package_eumpf-surface-base() {
-   groups=(eumpf-surface)
-   provides=(eumpf-device-base)
-   conflicts=(eumpf-desktop-base)
-   
-   install=eumpf-surface-base.install
-
-   depends=(
-      linux-surface linux-surface-headers iptsd
-      linux-firmware-marvell intel-ucode
-   )
-}
-
-package_eumpf-desktop-base() {
-   groups=(eumpf-desktop)
-   provides=(eumpf-device-base)
-   conflicts=(eumpf-surface-base)
-   
+package_eumpf-kernel() {
    depends=(
       linux linux-headers
-      nvidia intel-ucode
    )
 }
 
-package_eumpf-common() {
-   groups=(eumpf-surface eumpf-desktop)
-   depends=(eumpf-device-base)
-   provides=(eumpf-device)
-
-   depends+=(
-      base base-devel pacman-contrib
+package_eumpf-firmware() {
+   depends=(
       linux-firmware
-      man-db man-pages texinfo
-      sudo git which tree
-      zsh zsh-completions
-      dracut
-      neovim python-neovim tmux
+      intel-ucode
+      mesa
    )
 }
 
-package_eumpf-pc() {
-   groups=(eumpf-surface eumpf-desktop)
-   depends=(eumpf-device)
-   conflicts=(eumpf-server)
-
-   depends+=(
-      btrfs-progs e2fsprogs dosfstools exfatprogs
-      interception-tools
-      networkmanager
-      bluez bluez-utils
-      wireplumber pipewire-pulse pipewire-alsa
-      flatpak
+package_eumpf-machine-surface() {
+   provides=(
+      eumpf-machine
+      eumpf-kernel
+      eumpf-graphics
    )
-}
-
-package_eumpf-surface-graphics-support() {
-   groups=(eumpf-gui eumpf-surface)
-   depends=(eumpf-common)
-   provides=(eumpf-graphics-support)
-   conflicts=(eumpf-desktop-graphics-support)
-
+   conflicts=(eumpf-machine-desktop)
+   
+   depends=(eumpf-firmware)
+   
    depends+=(
-      mesa vulkan-intel
+      linux-surface
+      linux-surface-headers
+
+      linux-firmware-marvell
+      iptsd
+
       intel-media-driver
-      intel-gpu-tools
+      vulkan-intel
+   )
+
+   install=eumpf-surface.install
+}
+
+package_eumpf-machine-desktop() {
+   provides=(
+      eumpf-machine
+      eumpf-graphics
+   )
+   conflicts=(eumpf-machine-surface)
+
+   depends=(
+      eumpf-kernel
+      eumpf-firmware
+   )
+   depends+=(
+      libva-mesa-driver
+      mesa-vdpau
+      vulkan-radeon
    )
 }
 
-package_eumpf-desktop-graphics-support() {
-   groups=(eumpf-gui eumpf-desktop)
-   depends=(eumpf-common)
-   provides=(eumpf-graphics-support)
-   conflicts=(eumpf-surface-graphics-support)
-
+package_eumpf-base() {
+   depends=(eumpf-machine)
    depends+=(
-      nvidia
-      nvidia-utils
+      base
+      base-devel
+      pacman-contrib
+      dkms
+      dracut
+      
+      gcc
+      clang
+      git
+      meson
+      tree
+      less
+      man-db
+      man-pages
+
+      libsecret
+      libfido2
+      libblockdev
+      e2fsprogs
+      exfatprogs
+      networkmanager
+
+      zsh
+      tmux
+      neovim
+      python-pynvim
+
+      eumpf-dotfiles
+   )
+}
+
+package_eumpf-dotfiles() {
+   depends=(git)
+   install=eumpf-dotfiles.install
+}
+
+package_eumpf-pipewire() {
+   replaces=(pipewire)
+   depends=(eumpf-base)
+   depends+=(
+      pipewire
+      wireplumber
+      pipewire-alsa
+      pipewire-pulse
+   )
+}
+
+package_eumpf-gstreamer() {
+   replaces=(gstreamer)
+   depends=(eumpf-base)
+   depends+=(
+      gstreamer
+      gstreamer-vaapi
    )
 }
 
 package_eumpf-gnome() {
-   groups=(eumpf-gui eumpf-surface eumpf-desktop)
-   depends=(eumpf-graphics-support)
-   provides=(eumpf-graphical-environment)
-   
-   install=eumpf-gnome.install
-
+   provides=(eumpf-desktop-environment)
+   depends=(eumpf-gui)
    depends+=(
-      wayland wl-clipboard
-      gnome-shell gdm
+      gnome-shell
+      gdm
       xdg-desktop-portal-gnome
-      gnome-software
       gnome-control-center
       gnome-system-monitor
       gnome-disk-utility
+      gnome-calendar
+      gnome-software
+      flatpak
       gnome-tweaks
       nautilus
-      # aur
-      #gdm-settings
-      #adw-gtk-theme
+      gdm-settings # aur
+      adw-gtk-theme # aur
+      gradience-git # aur, and install my theme
    )
+
+   install=eumpf-gnome.install # install flatpaks (calendar, calculator etc)
 }
 
-package_eumpf-gui-apps() {
-   groups=(eumpf-apps eumpf-gui eumpf-surface eumpf-desktop)
-   depends=(eumpf-graphical-environment)
-   
-   install=eumpf-gui-apps.install
-
+package_eumpf-gui() {
+   groups=(
+      eumpf-desktop
+      eumpf-surface
+   )
+   depends=(
+      eumpf-base
+      eumpf-graphics
+      eumpf-pipewire
+      eumpf-desktop-environment
+   )
    depends+=(
+      qt5-wayland
+      qt6-wayland
+      gtk4
+      gtk3
+      wl-clipboard
+
       firefox
       zathura-pdf-mupdf
       alacritty
+      qucs-s # aur
    )
+
+   install=eumpf-gui.install # install flatpaks (obs, discord etc)
 }
 
-package_eumpf-cli-apps() {
-   groups=(eumpf-apps eumpf-surface eumpf-desktop)
-   depends=(eumpf-common)
-
-   depends+=(
-      texlive-latexextra
-      # aur
-      #pandoc-bin
-   )
-}
-
-package_eumpf-surface-config() {
-   groups=(eumpf-surface)
-   depends=(eumpf-common)
-   provides=(eumpf-config)
-   conflicts=(eumpf-desktop-config)
-}
-
-package_eumpf-desktop-config() {
+package_eumpf-desktop-extras() {
    groups=(eumpf-desktop)
-   depends=(eumpf-common)
-   provides=(eumpf-config)
-   conflicts=(eumpf-surface-config)
+   depends=(eumpf-gui)
+   depends+=(
+      qimp
+      freecad
+      dolphin-emu
+   )
+}
+
+package_eumpf-laptop-extras() {
+   groups=(eumpf-surface)
+   depends=(eumpf-gui)
+   optdepends=(
+      gimp
+      freecad
+      dolphin-emu
+   )
+}
+
+
+package_eumpf-cli() {
+   groups=(
+      eumpf-desktop
+      eumpf-surface
+   )
+   depends=(eumpf-base)
+   depends+=(
+      eumpf-pandoc
+      texlive-latexextra
+      tllocalmgr  # aur
+      micromamba-bin # aur
+   )
+}
+
+package_eumpf-vm() {
+   groups=(eumpf-desktop)
+   depends=(eumpf-gui)
+   depends+=(
+      libvirt
+      qemu-system-x86
+      qemu-img
+      qemu-ui-spice-core
+      qemu-audio-spice
+      qemu-ui-gtk
+      qemu-hw-usb-host
+      swtpm
+
+      looking-glass # aur
+      looking-glass-module-dkms # aur
+      obs-plugin-looking-glass # aur
+   )
+}
+
+package_eumpf-pandoc() {
+   depends=(eumpf-base)
+   replaces=(pandoc)
+   depends+=(
+      pandoc-bin # aur
+   )
+
+   install=eumpf-pandoc.install # install lua filters
 }

@@ -2,9 +2,8 @@ post_install() {
    flatpak install --system $(<< EOF
    com.github.tchx84.Flatseal
    com.mattjakeman.ExtensionManager
-   org.gnome.Calendar
-   org.gnome.Calculator
    org.gnome.SimpleScan
+   org.gnome.Calculator
    org.gnome.font-viewer
    org.gnome.eog
    org.gtk.Gtk3theme.adw-gtk3
