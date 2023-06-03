@@ -1,6 +1,11 @@
 pre_install() {
    HOSTNAME="Elias-Surface"
+   USERNAME="eliasrumpf"
+   BRANCH="surface"
+   
    echo "$HOSTNAME" > /etc/hostname
+
+   git clone --branch $BRANCH https://github.com/eumpf0/dotfiles.git /home/$USERNAME/.config
    
    # add key used for signing linux-surface kernels
    curl -s "https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc" | pacman-key --add -

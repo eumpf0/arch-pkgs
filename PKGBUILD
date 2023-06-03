@@ -200,18 +200,6 @@ package_eumpf-base() {
    install=eumpf-base.install
 }
 
-package_eumpf-dotfiles() {
-   groups=(
-      eumpf-desktop
-      eumpf-surface
-      eumpf-framework
-   )
-
-   depends=(eumpf-base)
-
-   install=eumpf-dotfiles.install
-}
-
 package_eumpf-gnome() {
    groups=(
       eumpf-desktop

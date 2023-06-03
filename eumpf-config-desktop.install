@@ -1,4 +1,9 @@
 pre_install() {
    HOSTNAME="Elias-Desktop"
+   USERNAME="eliasrumpf"
+   BRANCH="desktop"
+
    echo "$HOSTNAME" > /etc/hostname
+
+   git clone --branch $BRANCH https://github.com/eumpf0/dotfiles.git /home/$USERNAME/.config
 }
