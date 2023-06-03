@@ -1,0 +1,4 @@
+pre_install() {
+   HOSTNAME="Elias-Desktop"
+   echo "$HOSTNAME" > /etc/hostname
+}

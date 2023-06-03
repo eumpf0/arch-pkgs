@@ -1,4 +1,7 @@
 pre_install() {
+   HOSTNAME="Elias-Surface"
+   echo "$HOSTNAME" > /etc/hostname
+   
    # add key used for signing linux-surface kernels
    curl -s "https://raw.githubusercontent.com/linux-surface/linux-surface/master/pkg/keys/surface.asc" | pacman-key --add -
 
@@ -9,7 +12,7 @@ pre_install() {
    unset $TMP
 
    # add linux-surface repo to pacman
-   >> /etc/pacman.conf << EOF
+   cat >> /etc/pacman.conf << EOF
 
 [linux-surface]
 Server = https://pkg.surfacelinux.com/arch/
