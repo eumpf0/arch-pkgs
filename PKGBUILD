@@ -182,6 +182,8 @@ package_eumpf-base() {
       man-pages
       texinfo
 
+      ca-certificates
+
       libsecret
       libfido2
       libblockdev
@@ -249,6 +251,8 @@ package_eumpf-gui() {
       gtk3
       wl-clipboard
 
+      eumpf-flatpak
+
       xdg-user-dirs-gtk
 
       firefox
@@ -293,7 +297,6 @@ package_eumpf-config() {
    )
    depends=(
       eumpf-base
-      eumpf-config-machine
    )
 
    install=eumpf-config.install
@@ -302,7 +305,6 @@ package_eumpf-config() {
 package_eumpf-config-desktop() {
    groups=(eumpf-desktop)
    depends=(eumpf-config)
-   provides=(eumpf-config-machine)
    conflicts=(
       eumpf-config-surface
       eumpf-config-framework
@@ -314,7 +316,6 @@ package_eumpf-config-desktop() {
 package_eumpf-config-surface() {
    groups=(eumpf-surface)
    depends=(eumpf-config)
-   provides=(eumpf-config-machine)
    conflicts=(
       eumpf-config-desktop
       eumpf-config-framework
@@ -326,7 +327,6 @@ package_eumpf-config-surface() {
 package_eumpf-config-framework() {
    groups=(eumpf-framework)
    depends=(eumpf-config)
-   provides=(eumpf-config-machine)
    conflicts=(
       eumpf-config-desktop
       eumpf-config-surface
@@ -364,9 +364,9 @@ package_eumpf-vm() {
       qemu-ui-gtk
       qemu-hw-usb-host
       swtpm
-      looking-glass # aur
-      looking-glass-module-dkms # aur
-      obs-plugin-looking-glass # aur
+      #looking-glass # aur
+      #looking-glass-module-dkms # aur
+      #obs-plugin-looking-glass # aur
    )
 }
 

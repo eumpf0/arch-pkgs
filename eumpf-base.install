@@ -34,4 +34,6 @@ Section "InputClass"
       Option "XkbVariant" "nodeadkeys"
 EndSection
 EOF
+
+trust extract-compat
 }

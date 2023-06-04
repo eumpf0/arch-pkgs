@@ -2,7 +2,7 @@ pre_install() {
    USERNAME="eliasrumpf"
    FULLNAME="Elias Rumpf"
 
-   useradd -D -shell /usr/bin/zsh
+   useradd -D --shell /usr/bin/zsh
 
    useradd --create-home --user-group --comment "$FULLNAME" --groups wheel $USERNAME
 }
