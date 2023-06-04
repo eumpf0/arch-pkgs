@@ -1,7 +1,5 @@
 #!/bin/bash
 
-KEY="$1"
-
 pkgs=$(grep -Po '^\s*[(a-z)(A-Z)(0-9)\-\_]+(?=\s*#\s*aur)' PKGBUILD | sed 's/\s//g')
 
 declare -A uPkgs
@@ -34,7 +32,7 @@ myMakepkg() {
          uPkgs[$dep]=1
       fi
    done
-   makepkg -f --syncdeps --noconfirm --sign --key $KEY
+   makepkg -f --syncdeps --noconfirm --sign
    popd
    unset uPkgs[$1]
 }
