@@ -197,6 +197,8 @@ package_eumpf-base() {
       tmux
       neovim
       python-pynvim
+
+      yay
    )
 
    install=eumpf-base.install
