@@ -380,9 +380,9 @@ package_eumpf-vm() {
       qemu-ui-gtk
       qemu-hw-usb-host
       swtpm
-      #looking-glass # aur
-      #looking-glass-module-dkms # aur
-      #obs-plugin-looking-glass # aur
+      looking-glass # aur
+      looking-glass-module-dkms # aur
+      obs-plugin-looking-glass # aur
    )
 }
 

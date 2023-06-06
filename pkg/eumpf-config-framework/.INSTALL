@@ -1,0 +1,12 @@
+pre_install() {
+   HOSTNAME="Elias-Laptop"
+   USERNAME="eliasrumpf"
+   BRANCH="framework"
+
+   GHPAT="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"
+   GHUSER="eumpf0"
+
+   echo "$HOSTNAME" > /etc/hostname
+
+   git clone --branch $BRANCH https://${GHUSER}:${GHPAT}@github.com/eumpf0/dotfiles.git /home/$USERNAME/.config
+}
