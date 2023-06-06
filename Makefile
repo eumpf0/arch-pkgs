@@ -9,7 +9,7 @@ aur: PKGBUILD
 	./makeAur
 
 pkg: PKGBUILD
-	makepkg --syncdeps --noconfirm -f --sign
+	PKGDEST=${PKGDEST} makepkg --syncdeps --noconfirm -f --sign
 repo:
 	repo-add --verify --sign repo/${NAME}.db.tar.gz $(wildcard repo/*.pkg.tar.zst)
 
