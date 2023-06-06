@@ -1,6 +1,7 @@
 .PHONY: all aur pkg repo 
 
 NAME = eumpf
+PKGDEST = repo
 
 all: aur pkg repo
 
@@ -10,7 +11,7 @@ aur: PKGBUILD
 pkg: PKGBUILD
 	makepkg --syncdeps --noconfirm -f --sign
 repo:
-	repo-add --verify --sign ${NAME}.db.tar.gz $(wildcard *.pkg.tar.zst)
+	repo-add --verify --sign repo/${NAME}.db.tar.gz $(wildcard repo/*.pkg.tar.zst)
 
 clean:
 	rm -rf $(wildcard ${NAME}.* pkg/* src/* local/* *.sig *.zst)

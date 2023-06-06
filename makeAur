@@ -2,7 +2,7 @@
 
 pkgs=$(grep -Po '^\s*[(a-z)(A-Z)(0-9)\-\_]+(?=\s*#\s*aur)' PKGBUILD | sed 's/\s//g')
 
-export PKGDEST="$(pwd)"
+export PKGDEST="$(pwd)/repo"
 
 if [[ ! -d aur ]]; then
    mkdir aur

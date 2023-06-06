@@ -1,3 +1,5 @@
 /aur
 /pkg
 /src
+*.old
+*.old.sig

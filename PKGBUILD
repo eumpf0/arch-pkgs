@@ -357,7 +357,7 @@ package_eumpf-latex() {
    replaces=(texlive-latexextra tllocalmgr)
 
    depends=(
-      texlive-latexetra
+      texlive-latexextra
       perl-libwww
       perl-term-readline-gnu
       perl-list-moreutils
