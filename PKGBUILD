@@ -33,7 +33,7 @@ pkgname=(
 )
 
 pkgver=1
-pkgrel=1
+pkgrel=2
 
 pkgdesc="my arch metapackages & config"
 
