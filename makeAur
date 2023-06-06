@@ -2,46 +2,40 @@
 
 pkgs=$(grep -Po '^\s*[(a-z)(A-Z)(0-9)\-\_]+(?=\s*#\s*aur)' PKGBUILD | sed 's/\s//g')
 
-declare -A uPkgs
-for pkg in ${pkgs[@]}; do
-   uPkgs[$pkg]=1
-done
-
-unset pkgs
-
 export PKGDEST="$(pwd)"
 
 if [[ ! -d aur ]]; then
-   mkdir -p aur
+   mkdir aur
 fi
-
 pushd aur
 
 readDeps() {
-   source PKGBUILD
+   source $1/PKGBUILD
    echo ${depends[@]}
 }
 
 myMakepkg() {
+   # download pkg if it has not been downloaded yet
    if [[ ! -d $1 ]]; then
       git clone --depth 1 https://aur.archlinux.org/$1.git
    fi
-   pushd $1
-   for dep in $(readDeps); do
+
+   # for all listed deps
+   for dep in $(readDeps $1); do
+      # if they are from aur: make those deps first
       if yay -Sai $dep > /dev/null; then
-         uPkgs[$dep]=1
+         myMakepkg $dep
       fi
    done
-   makepkg -f --syncdeps --noconfirm --sign
-   popd
-   unset uPkgs[$1]
+   # all deps have been built, now make the package itself
+   pushd $1
+   makepkg --syncdeps --noconfirm --sign
+   popd # 1
 }
 
-while (( "${#uPkgs[@]}" != 0 )); do
-   keys=("${!uPkgs[@]}")
-   myMakepkg ${keys[0]}
+for pkg in ${pkgs[@]}; do
+   myMakepkg $pkg
 done
 
 unset PKGDEST
-
 popd # aur

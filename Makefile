@@ -13,7 +13,7 @@ repo:
 	repo-add --verify --sign ${NAME}.db.tar.gz $(wildcard *.pkg.tar.zst)
 
 clean:
-	rm -rf $(wildcard ${NAME}.* pkg/* src/* local/* *.sig)
+	rm -rf $(wildcard ${NAME}.* pkg/* src/* local/* *.sig *.zst)
 
 clean-all: clean
 	rm -rf pkg src local aur $(wildcard *.pkg.tar.zst)

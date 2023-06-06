@@ -27,6 +27,7 @@ pkgname=(
    eumpf-gstreamer
    eumpf-flatpak
    eumpf-pandoc
+   eumpf-latex
 
    eumpf-vm
 )
@@ -144,7 +145,6 @@ package_eumpf-initramfs() {
    )
    provides=(
       initramfs
-      dracut
    )
    conflicts=(
       mkinitcpio
@@ -164,7 +164,6 @@ package_eumpf-base() {
 
    depends=(
       eumpf-machine
-      eumpf-initramfs
    )
    depends+=(
       base
@@ -198,7 +197,7 @@ package_eumpf-base() {
       neovim
       python-pynvim
 
-      yay
+      yay # aur
    )
 
    install=eumpf-base.install
@@ -347,9 +346,24 @@ package_eumpf-cli() {
    depends=(eumpf-base)
    depends+=(
       eumpf-pandoc
-      texlive-latexextra
-      tllocalmgr # aur
+      eumpf-latex
       micromamba-bin # aur
+   )
+}
+
+package_eumpf-latex() {
+   groups=(eumpf-replacements)
+   depends=(eumpf-base)
+   replaces=(texlive-latexextra tllocalmgr)
+
+   depends=(
+      texlive-latexetra
+      perl-libwww
+      perl-term-readline-gnu
+      perl-list-moreutils
+      perl-lwp-protocol-https
+      perl-term-shellui # aur
+      tllocalmgr # aur
    )
 }
 
