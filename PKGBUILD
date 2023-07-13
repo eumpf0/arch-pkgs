@@ -19,6 +19,7 @@ pkgname=(
 
    eumpf-base
    eumpf-gnome
+   eumpf-hyprland
    eumpf-gui
    eumpf-cli
 
