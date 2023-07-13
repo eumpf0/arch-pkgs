@@ -1,5 +1,9 @@
 #!/bin/bash
 
+pkgs=$(grep -Po '/^\s*[(a-z)(A-Z)(0-9)\-\_]+(?=\s*#\s*aur)/d' PKGBUILD | sed 's/\s//g')
+
+exit
+
 pkgs=$(grep -Po '^\s*[(a-z)(A-Z)(0-9)\-\_]+(?=\s*#\s*aur)' PKGBUILD | sed 's/\s//g')
 
 export PKGDEST="$(pwd)/repo"

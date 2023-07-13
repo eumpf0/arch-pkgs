@@ -3,5 +3,4 @@ post_install() {
 
    flatpak override --filesystem=xdg-config/gtk-3.0
    flatpak override --filesystem=xdg-config/gtk-4.0
-
 }

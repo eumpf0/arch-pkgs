@@ -1,9 +1,9 @@
-.PHONY: all aur pkg repo 
+.PHONY: all pkg repo 
 
 NAME = eumpf
 PKGDEST = repo
 
-all: aur pkg repo
+all: pkg repo
 
 aur: PKGBUILD
 	./makeAur

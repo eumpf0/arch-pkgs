@@ -9,8 +9,8 @@ pkgname=(
    eumpf-machine-surface
    eumpf-machine-framework
 
-   eumpf-desktop-extras
-   eumpf-laptop-extras
+   eumpf-extras
+   eumpf-extras-desktop
 
    eumpf-config
    eumpf-config-desktop
@@ -33,14 +33,11 @@ pkgname=(
 )
 
 pkgver=1
-pkgrel=2
+pkgrel=3
 
 pkgdesc="my arch metapackages & config"
-
 arch=('any')
-
 url="https://github.com/eumpf0/arch-pkgs"
-
 license=('MIT')
 
 package_eumpf-kernel() {
@@ -48,7 +45,6 @@ package_eumpf-kernel() {
       eumpf-desktop
       eumpf-framework
    )
-
    depends=(
       linux
       linux-headers
@@ -61,7 +57,6 @@ package_eumpf-firmware() {
       eumpf-surface
       eumpf-framework
    )
-
    depends=(
       linux-firmware
       intel-ucode
@@ -80,9 +75,9 @@ package_eumpf-machine-surface() {
       eumpf-machine-desktop
       eumpf-machine-framework
    )
-   
-   depends=(eumpf-firmware)
-   depends+=(
+   depends=(
+      eumpf-firmware
+      #
       linux-surface
       linux-surface-headers
 
@@ -104,12 +99,10 @@ package_eumpf-machine-framework() {
       eumpf-machine-desktop
       eumpf-machine-surface
    )
-   
    depends=(
       eumpf-kernel
       eumpf-firmware
-   )
-   depends+=(
+      #
       intel-media-driver
       vulkan-intel
    )
@@ -125,12 +118,10 @@ package_eumpf-machine-desktop() {
       eumpf-machine-surface
       eumpf-machine-framework
    )
-
    depends=(
       eumpf-kernel
       eumpf-firmware
-   )
-   depends+=(
+      #
       libva-mesa-driver
       mesa-vdpau
       vulkan-radeon
@@ -150,9 +141,11 @@ package_eumpf-initramfs() {
       mkinitcpio
       booster
    )
-
-   depends=(eumpf-base)
-   depends+=(dracut)
+   depends=(
+      eumpf-machine
+      #
+      dracut
+   )
 }
 
 package_eumpf-base() {
@@ -161,15 +154,14 @@ package_eumpf-base() {
       eumpf-surface
       eumpf-framework
    )
-
    depends=(
       eumpf-machine
-   )
-   depends+=(
+      #
       base
       base-devel
       pacman-contrib
       dkms
+      kernel-modules-hook
       
       gcc
       clang
@@ -181,16 +173,19 @@ package_eumpf-base() {
       man-pages
       texinfo
 
-      ca-certificates
-
       libsecret
       libfido2
-      libblockdev
+      tpm2-tools
       e2fsprogs
       exfatprogs
+      btrfs-progs
       networkmanager
 
-      pam-u2f
+      sbsigntools
+      efibootmgr
+      efitools
+
+      reflector
 
       zsh
       tmux
@@ -199,7 +194,6 @@ package_eumpf-base() {
 
       yay # aur
    )
-
    install=eumpf-base.install
 }
 
@@ -210,9 +204,9 @@ package_eumpf-gnome() {
       eumpf-framework
    )
    provides=(eumpf-desktop-environment)
-
-   depends=(eumpf-gui)
-   depends+=(
+   depends=(
+      eumpf-gui
+      #
       gnome-shell
       gdm
       xdg-desktop-portal-gnome
@@ -228,8 +222,29 @@ package_eumpf-gnome() {
       adw-gtk-theme # aur
       gradience-git # aur
    )
-
    install=eumpf-gnome.install # install flatpaks (calendar, calculator etc) & my gradience theme
+}
+
+package_eumpf-hyprland() {
+   groups=(
+      eumpf-desktop
+      eumpf-surface
+      eumpf-framework
+   )
+   provides=(eumpf-desktop-environment)
+   depends=(
+      eumpf-gui
+      #
+      hyprland
+      hyprpaper
+      xdg-desktop-portal-hyprland
+      waybar-hyprland-git # aur
+      rofi-lbonn-wayland-git # aur
+      dunst
+      brightnessctl
+      swaylock
+      swayidle
+   )
 }
 
 package_eumpf-gui() {
@@ -238,14 +253,12 @@ package_eumpf-gui() {
       eumpf-surface
       eumpf-framework
    )
-
    depends=(
       eumpf-base
       eumpf-graphics
       eumpf-pipewire
       eumpf-desktop-environment
-   )
-   depends+=(
+      #
       qt5-wayland
       qt6-wayland
       gtk4
@@ -255,38 +268,39 @@ package_eumpf-gui() {
       eumpf-flatpak
 
       xdg-user-dirs-gtk
+      xdg-terminal-exec-git # aur
 
       firefox
       zathura-pdf-mupdf
       alacritty
-      qucs-s # aur
    )
-
    install=eumpf-gui.install # install flatpaks (obs, discord etc)
 }
 
-package_eumpf-desktop-extras() {
-   groups=(eumpf-desktop)
-
-   depends=(eumpf-gui)
-   depends+=(
-      gimp
-      freecad
-      dolphin-emu
-   )
-}
-
-package_eumpf-laptop-extras() {
+package_eumpf-extras() {
    groups=(
       eumpf-surface
       eumpf-framework
+      eumpf-desktop
    )
-
    depends=(eumpf-gui)
    optdepends=(
       gimp
       freecad
       dolphin-emu
+      qucs-s # aur
+   )
+}
+
+package_eumpf-extras-desktop() {
+   groups=(eumpf-desktop)
+   depends=(
+      eumpf-gui
+      #
+      freecad
+      gimp
+      dolphin-emu
+      ddcutil
    )
 }
 
@@ -296,10 +310,7 @@ package_eumpf-config() {
       eumpf-framework
       eumpf-desktop
    )
-   depends=(
-      eumpf-base
-   )
-
+   depends=(eumpf-base)
    install=eumpf-config.install
 }
 
@@ -310,7 +321,6 @@ package_eumpf-config-desktop() {
       eumpf-config-surface
       eumpf-config-framework
    )
-
    install=eumpf-config-desktop.install
 }
 
@@ -321,7 +331,6 @@ package_eumpf-config-surface() {
       eumpf-config-desktop
       eumpf-config-framework
    )
-
    install=eumpf-config-surface.install
 }
 
@@ -332,7 +341,6 @@ package_eumpf-config-framework() {
       eumpf-config-desktop
       eumpf-config-surface
    )
-
    install=eumpf-config-framework.install
 }
 
@@ -342,36 +350,37 @@ package_eumpf-cli() {
       eumpf-surface
       eumpf-framework
    )
-
-   depends=(eumpf-base)
-   depends+=(
+   depends=(
+      eumpf-base
+      #
       eumpf-pandoc
       eumpf-latex
       micromamba-bin # aur
+      pdftk
+      bluez-utils
+      calcurse
+      aerc
    )
 }
 
 package_eumpf-latex() {
    groups=(eumpf-replacements)
-   depends=(eumpf-base)
-   replaces=(texlive-latexextra tllocalmgr)
-
+   replaces=(texlive-bin)
    depends=(
-      texlive-latexextra
-      perl-libwww
-      perl-term-readline-gnu
-      perl-list-moreutils
-      perl-lwp-protocol-https
-      perl-term-shellui # aur
-      tllocalmgr # aur
+      eumpf-base
+      #
+      texlive-luatex
+      texlive-binextra
+      texlive-latexrecommended
+      texlive-mathscience
    )
 }
 
 package_eumpf-vm() {
    groups=(eumpf-desktop)
-
-   depends=(eumpf-gui)
-   depends+=(
+   depends=(
+      eumpf-gui
+      #
       libvirt
       qemu-system-x86
       qemu-img
@@ -389,21 +398,21 @@ package_eumpf-vm() {
 package_eumpf-pandoc() {
    groups=(eumpf-replacements)
    replaces=(pandoc)
-
-   depends=(eumpf-base)
-   depends+=(
+   depends=(
+      eumpf-base
+      #
+      eumpf-latex
       pandoc-bin # aur
    )
-
    install=eumpf-pandoc.install # install lua filters
 }
 
 package_eumpf-pipewire() {
    groups=(eumpf-replacements)
    replaces=(pipewire)
-
-   depends=(eumpf-base)
-   depends+=(
+   depends=(
+      eumpf-base
+      #
       pipewire
       wireplumber
       pipewire-alsa
@@ -415,9 +424,9 @@ package_eumpf-pipewire() {
 package_eumpf-gstreamer() {
    groups=(eumpf-replacements)
    replaces=(gstreamer)
-
-   depends=(eumpf-base)
-   depends+=(
+   depends=(
+      eumpf-base
+      #
       gstreamer
       gstreamer-vaapi
    )
@@ -426,9 +435,10 @@ package_eumpf-gstreamer() {
 package_eumpf-flatpak() {
    groups=(eumpf-replacements)
    replaces=(flatpak)
-
-   depends=(eumpf-base)
-   depends+=(flatpak)
-
+   depends=(
+      eumpf-base
+      #
+      flatpak
+   )
    install=eumpf-flatpak.install
 }
