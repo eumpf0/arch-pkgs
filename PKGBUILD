@@ -34,7 +34,7 @@ pkgname=(
 )
 
 pkgver=1
-pkgrel=3
+pkgrel=4
 
 pkgdesc="my arch metapackages & config"
 arch=('any')
@@ -215,12 +215,8 @@ package_eumpf-gnome() {
       gnome-system-monitor
       gnome-disk-utility
       gnome-calendar
-      gnome-software
-      eumpf-flatpak
       gnome-tweaks
-      nautilus
       gdm-settings # aur
-      adw-gtk-theme # aur
       gradience-git # aur
    )
    install=eumpf-gnome.install # install flatpaks (calendar, calculator etc) & my gradience theme
@@ -241,6 +237,7 @@ package_eumpf-hyprland() {
       xdg-desktop-portal-hyprland
       waybar-hyprland-git # aur
       rofi-lbonn-wayland-git # aur
+      awesome-terminal-fonts
       dunst
       brightnessctl
       swaylock
@@ -265,6 +262,10 @@ package_eumpf-gui() {
       gtk4
       gtk3
       wl-clipboard
+
+      adw-gtk-theme # aur
+      nautilus
+      gnome-software
 
       eumpf-flatpak
 
@@ -364,19 +365,6 @@ package_eumpf-cli() {
    )
 }
 
-package_eumpf-latex() {
-   groups=(eumpf-replacements)
-   replaces=(texlive-bin)
-   depends=(
-      eumpf-base
-      #
-      texlive-luatex
-      texlive-binextra
-      texlive-latexrecommended
-      texlive-mathscience
-   )
-}
-
 package_eumpf-vm() {
    groups=(eumpf-desktop)
    depends=(
@@ -406,6 +394,19 @@ package_eumpf-pandoc() {
       pandoc-bin # aur
    )
    install=eumpf-pandoc.install # install lua filters
+}
+
+package_eumpf-latex() {
+   groups=(eumpf-replacements)
+   replaces=(texlive-bin)
+   depends=(
+      eumpf-base
+      #
+      texlive-luatex
+      texlive-binextra
+      texlive-latexrecommended
+      texlive-mathscience
+   )
 }
 
 package_eumpf-pipewire() {
