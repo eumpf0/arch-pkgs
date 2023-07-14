@@ -26,10 +26,10 @@ EOF
 mkdir -p /etc/X11/xorg.conf.d
 cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
 Section "InputClass"
-      Identifier "system-keyboard"
-      Option "XkbLayout" "de"
-      Option "XkbModel" "pc105"
-      Option "XkbVariant" "nodeadkeys"
+    Identifier "system-keyboard"
+    Option "XkbLayout" "de"
+    Option "XkbModel" "pc105"
+    Option "XkbVariant" "nodeadkeys"
 EndSection
 EOF
 

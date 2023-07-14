@@ -1,10 +1,10 @@
 pre_install() {
-   USERNAME="eliasrumpf"
-   FULLNAME="Elias Rumpf"
+    USERNAME="eliasrumpf"
+    FULLNAME="Elias Rumpf"
 
-   useradd -D --shell /usr/bin/zsh
+    useradd -D --shell /usr/bin/zsh
 
-   useradd --create-home --user-group --comment "$FULLNAME" --groups wheel $USERNAME
-   
-   echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/wheel
+    useradd --create-home --user-group --comment "$FULLNAME" --groups wheel $USERNAME
+
+    echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/wheel
 }

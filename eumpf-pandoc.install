@@ -1,8 +1,8 @@
 post_install() {
-   DIR=/usr/share/pandoc/filters
-   mkdir -p $DIR
+    DIR=/usr/share/pandoc/filters
+    mkdir -p $DIR
 
-   pkgs="$(xargs << EOF
+    pkgs="$(xargs << EOF
 b3/include-code-files
 pandoc-ext/pretty-urls
 pandoc-ext/pagebreak
@@ -14,10 +14,9 @@ dialoa/statement
 cdivita/pandoc-curly-switch
 EOF
 )"
-
-   pushd $DIR
-   for pkg in $pkgs; do
-      git clone --depth 1 https://github.com/$pkg.git
-   done
-   popd
+    pushd $DIR
+    for pkg in $pkgs; do
+        git clone --depth 1 https://github.com/$pkg.git
+    done
+    popd
 }

@@ -1,7 +1,0 @@
-post_install() {
-   flatpak install --system $(<< EOF
-   com.mattjakeman.ExtensionManager
-   org.gnome.SimpleScan
-EOF
-)
-}
