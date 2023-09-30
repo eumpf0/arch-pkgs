@@ -28,7 +28,7 @@ pkgname=(
 )
 
 pkgver=2
-pkgrel=1
+pkgrel=3
 
 pkgdesc="my arch metapackages & config"
 arch=('any')
@@ -42,7 +42,7 @@ package_eumpf-machine-base() {
     )
     depends=(
         linux-eumpf
-        linux-headers-eumpf
+        linux-eumpf-headers
         linux-firmware
         intel-ucode
         mesa
@@ -196,7 +196,7 @@ package_eumpf-gui() {
         kvantum-theme-nordic-git # aur
         adw-gtk-theme # aur
 
-        v4l2-loopback-dkms
+        v4l2loopback-dkms
 
         eumpf-flatpak
         xdg-user-dirs-gtk
@@ -284,7 +284,7 @@ package_eumpf-cli() {
         khal
         nvtop
         btop
-        android-utils
+        android-tools
     )
 }
 
