@@ -27,8 +27,8 @@ pkgname=(
     eumpf-vm
 )
 
-pkgver=2
-pkgrel=3
+pkgver=3
+pkgrel=1
 
 pkgdesc="my arch metapackages & config"
 arch=('any')
@@ -135,6 +135,7 @@ package_eumpf-base() {
 
         zsh
         zsh-completions
+        fzf
         tmux
         neovim
         python-pynvim
@@ -164,8 +165,7 @@ package_eumpf-hyprland() {
         waybar
         wofi
         dunst
-        brightnessctl
-        swaylock-effects-git # aur
+        swaylock-effects-improved-git # aur
         swayidle
         blueman
     )
@@ -188,10 +188,12 @@ package_eumpf-gui() {
         gtk4
         wl-clipboard
 
+        wev
+
         ttf-fantasque-nerd
         ttf-firacode-nerd
-        ttf-victor-mono-nerd
         otf-firamono-nerd
+        ttf-victor-mono-nerd
 
         kvantum-theme-nordic-git # aur
         adw-gtk-theme # aur
@@ -215,8 +217,11 @@ package_eumpf-extras() {
         firefox
         zathura-pdf-mupdf
         nautilus
+        nautilus-open-any-terminal # aur
+        nextloud-client
         gvfs-mtp
         gnome-software
+        art-rawconverter # aur
     )
 }
 
@@ -282,6 +287,8 @@ package_eumpf-cli() {
         bluez-utils
         aerc
         khal
+        khard
+        vdirsyncer
         nvtop
         btop
         android-tools
@@ -295,9 +302,7 @@ package_eumpf-vm() {
         #
         libvirt
         qemu-system-x86
-        qemu-img
         qemu-audio-pipewire
-        qemu-hw-usb-host
         swtpm
         looking-glass # aur
         looking-glass-module-dkms # aur
