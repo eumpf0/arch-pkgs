@@ -28,7 +28,7 @@ pkgname=(
 )
 
 pkgver=3
-pkgrel=1
+pkgrel=2
 
 pkgdesc="my arch metapackages & config"
 arch=('any')
@@ -218,7 +218,7 @@ package_eumpf-extras() {
         zathura-pdf-mupdf
         nautilus
         nautilus-open-any-terminal # aur
-        nextloud-client
+        nextcloud-client
         gvfs-mtp
         gnome-software
         art-rawconverter # aur
