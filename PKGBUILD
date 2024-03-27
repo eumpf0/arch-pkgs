@@ -28,7 +28,7 @@ pkgname=(
 )
 
 pkgver=3
-pkgrel=2
+pkgrel=4
 
 pkgdesc="my arch metapackages & config"
 arch=('any')
@@ -46,6 +46,7 @@ package_eumpf-machine-base() {
         linux-firmware
         intel-ucode
         mesa
+        opencl-rusticl-mesa
     )
 }
 
@@ -112,8 +113,11 @@ package_eumpf-base() {
         devtools
         clang
         meson
+        shellcheck-bin # aur
+        android-tools
         tree
         less
+        bat
         man-db
         man-pages
 
@@ -125,10 +129,13 @@ package_eumpf-base() {
         exfatprogs
         btrfs-progs
         networkmanager
+        net-tools
 
         sbsigntools
         efibootmgr
         efitools
+        elfutils
+        pigz
 
         pacman-contrib
         reflector
@@ -162,12 +169,13 @@ package_eumpf-hyprland() {
         hyprland
         hyprpaper
         xdg-desktop-portal-hyprland
+        polkit-kde-agent
         waybar
         wofi
         dunst
         swaylock-effects-improved-git # aur
         swayidle
-        blueman
+        blueman-git # aur
     )
 }
 
@@ -187,6 +195,8 @@ package_eumpf-gui() {
         gtk3
         gtk4
         wl-clipboard
+
+        libnotify
 
         wev
 
@@ -286,12 +296,14 @@ package_eumpf-cli() {
         pdftk
         bluez-utils
         aerc
+        msmtp-mta
+        isync
         khal
         khard
         vdirsyncer
+        todoman
         nvtop
         btop
-        android-tools
     )
 }
 
